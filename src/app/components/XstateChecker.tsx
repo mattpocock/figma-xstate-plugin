@@ -1,12 +1,13 @@
+import AceEditor from 'react-ace';
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
 import React, { useEffect, useState } from 'react';
-import AceEditor from 'react-ace';
 import { fetchMachine } from './fetchMachine';
 import { toMachine } from './toMachine';
 
 export interface StateWithEvent {
   name: string;
+  isInitial: boolean;
   events: {
     type: string;
     target: string;
@@ -27,6 +28,7 @@ export const XStateChecker: React.FC<{
           const state = machine.states[key];
           return {
             name: key,
+            isInitial: machine.initial === key,
             events: state.events.map((event) => {
               const nextState = machine.transition(key, event);
               return {

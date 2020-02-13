@@ -3,9 +3,10 @@ import '../styles/ui.css';
 import { XStateChecker, StateWithEvent } from './XstateChecker';
 
 const App: React.FC = () => {
+  const [states, setStates] = useState<StateWithEvent[]>([]);
   const onCreate = () => {
     parent.postMessage(
-      { pluginMessage: { type: 'create-rectangles', count: 5 } },
+      { pluginMessage: { type: 'create-states', states } },
       '*',
     );
   };
@@ -18,15 +19,13 @@ const App: React.FC = () => {
     // This is how we read messages sent from the plugin controller
     window.onmessage = (event) => {
       const { type, message } = event.data.pluginMessage;
-      if (type === 'create-rectangles') {
+      if (type === 'create-states') {
         console.log(`Figma Says: ${message}`);
       }
     };
   }, []);
 
-  const [states, setStates] = useState<StateWithEvent[]>([]);
 
-  console.log({ states });
 
   return (
     <div>
