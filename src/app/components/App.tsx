@@ -1,27 +1,18 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/ui.css';
-
-declare function require(path: string): any;
+import { XStateChecker, StateWithEvent } from './XstateChecker';
 
 const App: React.FC = () => {
-  const textbox = useRef<HTMLInputElement>(undefined);
-
-  const countRef = useCallback((element: HTMLInputElement) => {
-    if (element) element.value = '5';
-    textbox.current = element;
-  }, []);
-
-  const onCreate = useCallback(() => {
-    const count = parseInt(textbox.current.value, 10);
+  const onCreate = () => {
     parent.postMessage(
-      { pluginMessage: { type: 'create-rectangles', count } },
+      { pluginMessage: { type: 'create-rectangles', count: 5 } },
       '*',
     );
-  }, []);
+  };
 
-  const onCancel = useCallback(() => {
+  const onCancel = () => {
     parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
-  }, []);
+  };
 
   useEffect(() => {
     // This is how we read messages sent from the plugin controller
@@ -33,13 +24,18 @@ const App: React.FC = () => {
     };
   }, []);
 
+  const [states, setStates] = useState<StateWithEvent[]>([]);
+
+  console.log({ states });
+
   return (
     <div>
-      <img src={require('../assets/logo.svg')} />
-      <h2>Rectangle Creator</h2>
-      <p>
-        Count: <input ref={countRef} />
-      </p>
+      <h2>Import XState to Figma</h2>
+      <XStateChecker
+        onChange={(value) => {
+          setStates(value.states);
+        }}
+      />
       <button id="create" onClick={onCreate}>
         Create
       </button>
