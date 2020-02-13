@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "webpack --mode=production",
 		"start": "webpack --mode=development --watch",
-		"prettify": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' "
+		"prettify": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}'"
 	},
 	"dependencies": {
 		"react": "^16.8.6",
