@@ -58,7 +58,7 @@ export const XStateChecker: React.FC<{
       onChange={(value) => setCode(value)}
       setOptions={{ tabSize: 2, fontSize: '12px' }}
       width="100%"
-      height={'200px'}
+      height={'90px'}
       showGutter={false}
       wrapEnabled
     />

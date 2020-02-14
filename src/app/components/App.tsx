@@ -25,8 +25,6 @@ const App: React.FC = () => {
     };
   }, []);
 
-
-
   return (
     <div>
       <h2>Import XState to Figma</h2>
@@ -35,10 +33,12 @@ const App: React.FC = () => {
           setStates(value.states);
         }}
       />
-      <button id="create" onClick={onCreate}>
-        Create
-      </button>
-      <button onClick={onCancel}>Cancel</button>
+      <div style={{ marginTop: 16 }}>
+        <button id="create" onClick={onCreate}>
+          Create
+        </button>
+        <button onClick={onCancel}>Cancel</button>
+      </div>
     </div>
   );
 };
